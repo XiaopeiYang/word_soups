@@ -92,7 +92,7 @@ for i, desc in enumerate(tqdm(descriptions)):
     
 torch.save(
     (descriptions,description_features), 
-    '/home/y/yangxi/proj/visualrep/code/word_soups/cache/{}{}_{}_{}_{}.tensor'.format(
+    'cache/{}{}_{}_{}_{}.tensor'.format(
         '' if args.subsample_classes == 'all' else dataset,
         args.savename,
         checkpoint, 

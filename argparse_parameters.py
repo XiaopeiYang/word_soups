@@ -13,8 +13,8 @@ def get_arg_parser():
     parser.add_argument('--d', default = 512, type =int) # dimension of CLIP embedding
     parser.add_argument('--modelname', default = 'ViT-B-16', type =str)
     parser.add_argument('--pretrained', default = 'openai', type =str)
-    parser.add_argument('--cache_dir', default = "/home/y/yangxi/proj/visualrep/code/word_soups_bio/cache", type =str)
-    parser.add_argument('--data_dir', default = "/home/y/yangxi/proj/visualrep/code/word_soups/data", type =str)
+    parser.add_argument('--cache_dir', default = "", type =str)
+    parser.add_argument('--data_dir', default = "", type =str)
     parser.add_argument('--use_patches', default = True, type=bool) #whether patches for FungiSmall
     
     parser.add_argument('--n_epochs', default = 1, type = int)

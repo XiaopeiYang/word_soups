@@ -1,7 +1,6 @@
 # Word and Descriptor Soups 🍜 [[ArXiv]](https://arxiv.org/pdf/2311.13612.pdf)
 -----------------------------------------------------
 
-![](https://github.com/Chris210634/word_soups/blob/main/figures/parameter_efficiency.png?raw=true)
 
 Code in this repo uses code from [multimodal prompt learning](https://github.com/muzairkhattak/multimodal-prompt-learning), which in turn uses code from [Co-CoOp and CoOp](https://github.com/KaiyangZhou/CoOp).
 
@@ -31,13 +30,15 @@ data/
 |-- images4LMU (the folder of fungi-images)
 ```
 
+*The file '\source\datasets\fungi_small.py' is primarily used for sampling the "FungiSmall" dataset.
+
 Modify the following two lines in `argparse_parameters.py` to reflect where you have your `data/` dir and where you want the pretrained CLIP weights to be cached (which could be many gigabytes)
 
 ```python
 parser.add_argument('--cache_dir', default = "", type =str) # set to directory where you want large pretrained model weights to be cached
 parser.add_argument('--data_dir', default = "", type =str)  # set to parent directory of data/
 ```
-Modify the following one line in `argparse_parameters.py` to reflect whether you use patches for fungi images.
+Modify the following one line in `argparse_parameters.py` to reflect whether you use patches for fungi dataset.
 
 ```python
 parser.add_argument('--use_patches', default = True, type =bool) # 
@@ -142,7 +143,7 @@ sh scripts/waffle_descriptors_eval.sh 16
 
 ### Few-shot OOD comparisons
 
-These scripts train on 3 random splits of 16-shot ImageNet-1K. **"XD(cross dataset) "** stands for test accuracy on an OOD(out of distribution) dataset (FungiSmall). I didn't get the result, because CUDA is out of memory on my cip pool. Can you help me test it?  
+These scripts train on 3 random splits of 16-shot ImageNet-1K. **"XD(cross dataset) "** stands for test accuracy on an OOD(out of distribution) dataset (FungiSmall). I didn't get the result, because CUDA is out of memory on my cip pool.   
 
 | Method | Command to run | XD  | 
 | ------ | -------------- | ------ | 
