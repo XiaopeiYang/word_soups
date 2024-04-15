@@ -30,7 +30,7 @@ data/
 |-- images4LMU (the folder of fungi-images)
 ```
 
-*The file '\source\datasets\fungi_small.py' is primarily used for sampling the "FungiSmall" dataset.
+* The file '\source\datasets\fungi_small.py' is primarily used for sampling the "FungiSmall" dataset.
 
 Modify the following two lines in `argparse_parameters.py` to reflect where you have your `data/` dir and where you want the pretrained CLIP weights to be cached (which could be many gigabytes)
 
@@ -184,7 +184,7 @@ description features in `cache/FungiSmalldescription_features__ViT-B-16_openai.t
 For word features:
 
 ```bash
-  python preprocess/generate_description_features.py --dataset FungiSmall --descriptions words.list --savename word_features --subsample_classes base
+  python preprocess/generate_description_features.py --dataset FungiSmall --descriptions preprocess/words.list --savename word_features --subsample_classes base
 ```
 This will save the tuple or words and word features in `cache/FungiSmallword_features__ViT-B-16_openai.tensor`
 
