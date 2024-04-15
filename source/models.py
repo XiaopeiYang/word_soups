@@ -386,7 +386,8 @@ class ShallowPrompt(torch.nn.Module):
     def get_text_embeddings_from_tokenized_string(
         self,
         model,
-        tokenized_text_prototypes
+        tokenized_text_prototypes,
+        use_raw
     ):
         '''
         use this function if you want to input your own prototype strings,
@@ -396,19 +397,28 @@ class ShallowPrompt(torch.nn.Module):
         
         # just want to check that the given tokenized text prototypes
         # start with the same string this class was initialized with
-        tokenized_prompt_init = self.tokenizer(self.prompt_init)[0][:self.M+1].cuda()
-        for _text in tokenized_text_prototypes:
-            assert (tokenized_prompt_init - _text[:self.M+1].cuda()).sum() == 0
+        #print("self.prompt_init",self.prompt_init)
+        if not use_raw:
+            tokenized_prompt_init = self.tokenizer(self.prompt_init)[0][:self.M+1].cuda()
+        #print("Expected tokenized init prompt:", tokenized_prompt_init)
+        #print("Actual tokenized text used:", _text[:self.M+1].cuda())
+            for _text in tokenized_text_prototypes:
+                assert (tokenized_prompt_init - _text[:self.M+1].cuda()).sum() == 0
             
         # embed the tokens and replace a photo of with learned context vecs
-        emb = model.token_embedding(
-            tokenized_text_prototypes.to(model.text_projection.device)
-        ).detach()
-        emb[:, 1:self.M+1, :] = self.ctx_vectors.repeat(
-            len(tokenized_text_prototypes), 1, 1
-        )
-        
-        eofs = tokenized_text_prototypes.argmax(dim=-1)
+            emb = model.token_embedding(
+                tokenized_text_prototypes.to(model.text_projection.device)
+            ).detach()
+            emb[:, 1:self.M+1, :] = self.ctx_vectors.repeat(
+                len(tokenized_text_prototypes), 1, 1
+            )
+            
+            eofs = tokenized_text_prototypes.argmax(dim=-1)
+        else:
+            emb = model.token_embedding(
+                tokenized_text_prototypes.to(model.text_projection.device)
+            ).detach()
+            eofs = tokenized_text_prototypes.argmax(dim=-1)
         return emb, eofs
     
     def insert_descriptor_embeddings(

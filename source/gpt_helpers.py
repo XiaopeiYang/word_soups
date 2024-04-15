@@ -2,59 +2,21 @@ from source.loading_helpers import load_gpt_descriptions
 import torch
 import torch.nn.functional as F
 from source.utils import get_text_labels, replace_underscores
+from config import Fungi_dataset
 
 descriptor_fname_dict = {
     'ImageNet':'descriptors_imagenet',
-    'Caltech101':'descriptors_caltech',
-    'OxfordPets':'descriptors_pets',
-    'StanfordCars':'descriptors_cars',
-    'Flowers102':'descriptors_flowers',
-    'Food101':'descriptors_food101',
-    'FGVCAircraft':'descriptors_planes',
-    'SUN397':'descriptors_sun',
-    'DTD':'descriptors_dtd',
-    'EuroSAT':'descriptors_eurosat',
-    'UCF101':'descriptors_ucf',
-    'ImageNetV2':'descriptors_imagenet',
-    'ImageNetSketch':'descriptors_imagenet',
-    'ImageNetA':'descriptors_imagenet',
-    'ImageNetR':'descriptors_imagenet'
+    Fungi_dataset:'fungi_descriptions/fungi_descriptions11_model7b'#change
 }
 
 between_text_dict = {
     'ImageNet':'',
-    'Caltech101':'',
-    'OxfordPets':', a type of pet',
-    'StanfordCars':'',
-    'Flowers102':', a type of flower',
-    'Food101':', a type of food',
-    'FGVCAircraft':', a type of aircraft',
-    'SUN397':'',
-    'DTD':' texture',
-    'EuroSAT':', from a satellite',
-    'UCF101':', a type of action',
-    'ImageNetV2':'',
-    'ImageNetSketch':'',
-    'ImageNetA':'',
-    'ImageNetR':''
+    Fungi_dataset:', a type of fungi'
 }
 
 suffix_dict = {
     'ImageNet':'.',
-    'Caltech101':'.',
-    'OxfordPets':', a type of pet.',
-    'StanfordCars':'.',
-    'Flowers102':', a type of flower.',
-    'Food101':', a type of food.',
-    'FGVCAircraft':', a type of aircraft.',
-    'SUN397':'.',
-    'DTD':' texture.',
-    'EuroSAT':', from a satellite.',
-    'UCF101':', a type of action.',
-    'ImageNetV2':'.',
-    'ImageNetSketch':'.',
-    'ImageNetA':'.',
-    'ImageNetR':'.'
+    Fungi_dataset:', a type of fungi'
 }
 
 manual_prompts = [    
@@ -166,7 +128,7 @@ def get_openai_manual_prompt_template_centroids(
         
         if prompt[:len(prompt_init)] == prompt_init:
             with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
-                f_text = encode_text_wrapper(model, text_label_list_with_suffix, tokenizer)
+                f_text = encode_text_wrapper(model, text_label_list_with_suffix, tokenizer,use_raw=False)
         else:
             # this is for prompts that do not start with coop initialization
             text = tokenizer(text_label_list_with_suffix)
@@ -188,8 +150,22 @@ def get_gpt_descriptions(dataset):
     hparams['label_before_text'] = ""
     hparams['between_text'] = between_text_dict[dataset] + ', '
     hparams['apply_descriptor_modification'] = True
-    gpt_descriptions, _ = load_gpt_descriptions(hparams, classes_to_load=None)
+    gpt_descriptions, _, _ = load_gpt_descriptions(hparams, classes_to_load=None)
     return gpt_descriptions
+
+def get_gpt_raw_descriptions(dataset):    
+    # For other datasets, build the file path normally
+    descriptor_fname = 'gpt_descriptors/' + descriptor_fname_dict[dataset]
+    hparams = {}
+    hparams['category_name_inclusion'] = 'prepend'
+    hparams['descriptor_fname'] = descriptor_fname
+    hparams['after_text'] = hparams['label_after_text'] = '.'
+    hparams['before_text'] = 'a photo of a '
+    hparams['label_before_text'] = ""
+    hparams['between_text'] = between_text_dict[dataset] + ', '
+    hparams['apply_descriptor_modification'] = True
+    _, _,gpt_raw_descriptions = load_gpt_descriptions(hparams, classes_to_load=None)
+    return gpt_raw_descriptions
 
 def transform_classname(c):
     '''
@@ -205,9 +181,9 @@ def transform_classname(c):
        
     return classname
 
-def encode_text_wrapper(model, string_text, tokenizer):
+def encode_text_wrapper(model, string_text, tokenizer,use_raw):
     emb, eofs = model.shallow_prompt.get_text_embeddings_from_tokenized_string(
-                model, tokenizer(string_text).cuda()
+                model, tokenizer(string_text).cuda(), use_raw
             )
     return F.normalize(
         model.encode_text(
@@ -217,7 +193,7 @@ def encode_text_wrapper(model, string_text, tokenizer):
         )
     )
 
-def get_gpt_centroids(gpt_descriptions, classnames, model, tokenizer):
+def get_gpt_centroids(gpt_descriptions, classnames, model, tokenizer,use_raw=False):
     '''
     gpt_descriptions is a dict where keys are classnames
     and entries are lists with input texts.
@@ -227,11 +203,13 @@ def get_gpt_centroids(gpt_descriptions, classnames, model, tokenizer):
     text_centroids = []
     for c in classnames:
         classname = transform_classname(replace_underscores(c))
+        #print("classname,",classname)
         _descriptions = gpt_descriptions[classname]
+        #print("_descriptions,",_descriptions)
         with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
             text_centroids.append(
                 F.normalize(encode_text_wrapper(
-                    model, _descriptions, tokenizer
+                    model, _descriptions, tokenizer,use_raw
                 )).mean(0)
             )
     text_centroids = torch.stack(text_centroids)
@@ -255,7 +233,7 @@ def get_centroids(closest_description_dict,
         with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
             text_centroids.append(
                 F.normalize(encode_text_wrapper(
-                    model, _descriptions, tokenizer
+                    model, _descriptions, tokenizer,use_raw=False
                 )).mean(0)
             )
     text_centroids = torch.stack(text_centroids)

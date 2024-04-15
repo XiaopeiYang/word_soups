@@ -39,13 +39,18 @@ cfg.ROOT = data_dir
 cfg.NUM_SHOTS = 16
 cfg.SEED = 1
 cfg.SUBSAMPLE_CLASSES = args.subsample_classes
+if dataset == "FungiSmall":
+    cfg.USE_PATCHES = args.use_patches
 dataset_class = dataset_classes[dataset]
+#print('dataset_class:',dataset_class)
 dset = dataset_class(cfg)
 n_classes = len(dset.classnames)
         
 ### Get the zeroshot text prototypes (with prompt)
+#print("dset.classnames:",dset.classnames)
 tokenizer = open_clip.get_tokenizer(modelname)
 text_base = tokenizer(get_text_labels(dset.classnames, prompt))
+#print("get_text_labels:",get_text_labels(dset.classnames, prompt))
 
 model =  MyClip(modelname, pretrained, n_classes, args.d, 
                   temp = args.temp, args=args, 
@@ -62,6 +67,7 @@ if checkpoint != '':
 tokenizer = open_clip.get_tokenizer(modelname)
 prompted_strings = get_text_labels(dset.classnames, prompt)
 assert all([c[-1] == '.' for c in prompted_strings])
+#print("prompted_strings:",prompted_strings)
 
 descriptions = torch.load(args.descriptions)
 description_features = torch.zeros(
@@ -86,7 +92,7 @@ for i, desc in enumerate(tqdm(descriptions)):
     
 torch.save(
     (descriptions,description_features), 
-    'cache/{}{}_{}_{}_{}.tensor'.format(
+    '/home/y/yangxi/proj/visualrep/code/word_soups/cache/{}{}_{}_{}_{}.tensor'.format(
         '' if args.subsample_classes == 'all' else dataset,
         args.savename,
         checkpoint, 

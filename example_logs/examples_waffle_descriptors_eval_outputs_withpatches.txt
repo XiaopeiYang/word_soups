@@ -1,0 +1,47 @@
+Namespace(dataset='', bs=4, seed=1, accum_iter=1, lr=2e-05, wd=1e-05, shots=4, d=512, modelname='ViT-B-16', pretrained='openai', cache_dir='/home/y/yangxi/proj/visualrep/code/word_soups_bio/cache', data_dir='/home/y/yangxi/proj/visualrep/code/word_soups/data', use_patches=True, n_epochs=1, iters_per_epoch=750, lr_decay=0.0, temp=60.0, optimizer='sgd', loss='ce', label_smoothing=0.0, samples_per_class=1, margin=0.0, adaptive_margin=0.0, ema=0.995, visual_prompt_depth=0, visual_prompt_length=3, text_prompt_length=3, text_prompt_depth=1, train_text_encoder=1, train_visual_encoder=1, layer_start_v=9, layer_start_t=9, maple=0, lora=0, bitfit=0, adapter=0, ssf=0, resblock_adapter=0, rank=4, shallow_prompt_init='a photo of', prompt_lr_multi=10.0, eval_only=1, save_model=0, n_descriptors=16, checkpoint='', prompt_rand_init=0, suffix_string='', train_with_descriptors=0, teacher_temp=100.0, init_lam=0.0, skip_ema_iters=0, subsample_classes='all', descriptor_file='cache/waffle_descriptors_512_count.list', shuffle_descriptors=1, use_cached_image_features=0, use_pretrained_image_features=0, openai_eval=0, gpt_centroid_eval=0, gpt_score_averaging_eval=0, raw_gpt_centroid_eval=0, raw_gpt_score_averaging_eval=0, soup_eval=1, score_averaging=0, token_offset_eval=0, zs_average=0, rand_seed=0)
+CHOSEN DESCRIPTORS: 
+, which has nsLxM, ltrPk.
+, which has bulls acryli.
+, which has FC(zm, j:JwV.
+, which has bat footba.
+, which has M:k(N, sGQz-.
+, which has tV8zy, gUkwz.
+, which has fort poison.
+, which has :uucL, ebOvT.
+, which has ex(QB, Qwn3v.
+, which has clean ornate.
+, which has raTJL, JedbJ.
+, which has gate light.
+, which has strap umbrel.
+, which has cornic arm.
+, which has calls foam.
+, which has elevat member.
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/imagenet/shot_16-seed_1.pkl
+len(dset_base_train):  16000
+number of base classes:  1000
+prompt tuning with prompt length M=3
+shape of text prompt token vectors: torch.Size([3, 512])
+shape of prefix token vectors: torch.Size([1, 512])
+Calculated 16 description vectors
+Runing Evaluation ...
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/imagenet/shot_16-seed_1.pkl
+ImageNet has 50000 test samples
+loaded image features from cache/image_features.y_truth.ImageNetViT-B-16openai.tup
+a photo of ZS
+acc:  67.11399555206299
+Calculated 16 description vectors
+acc:  68.2699978351593
+[67.11399555206299, 68.2699978351593]
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_1.pkl
+FungiSmall has 126 test samples
+loaded image features from cache/image_features.y_truth.FungiSmallViT-B-16openai.tup
+a photo of ZS
+acc:  16.66666716337204
+Calculated 16 description vectors
+acc:  16.66666716337204
+[16.66666716337204, 16.66666716337204]
+Results:
+,ImageNet,FungiSmall,
+ZS,67.11399555206299,16.66666716337204,
+soup,68.2699978351593,16.66666716337204,

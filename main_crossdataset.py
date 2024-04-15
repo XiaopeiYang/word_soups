@@ -21,6 +21,8 @@ from source.models import *
 from source.trainer import *
 from argparse_parameters import get_arg_parser
 import time
+from config import Fungi_dataset
+#Fungi_dataset = 'FungiSmall'#chage
 
 experiment_startime = int(time.time() * 1000000)
 
@@ -33,6 +35,8 @@ parser.add_argument('--use_pretrained_image_features', default = 0, type=int)
 parser.add_argument('--openai_eval', default = 0, type=int)
 parser.add_argument('--gpt_centroid_eval', default = 0, type=int)
 parser.add_argument('--gpt_score_averaging_eval', default = 0, type=int)
+parser.add_argument('--raw_gpt_centroid_eval', default = 0, type=int)
+parser.add_argument('--raw_gpt_score_averaging_eval', default = 0, type=int)
 parser.add_argument('--soup_eval', default = 0, type=int)
 parser.add_argument('--score_averaging', default = 0, type=int)
 parser.add_argument('--token_offset_eval', default = 0, type=int)
@@ -109,6 +113,7 @@ dset_base_train = dassl_dataset_conversion(base_dset, train_xform, 'train')
 # unlike the other datasets, when using immagenet,
 # following standard procedure, we use the 50,000 validation images
 # for testing
+
 dset_base_val = []
 dset_base_test, dset_new_test = get_imagenet_val_dataset(
     test_xform,
@@ -118,6 +123,7 @@ for i in range(500):
     
 print('len(dset_base_train): ', len(dset_base_train))
 print('number of base classes: ', len(base_dset.classnames))
+
 ####################################################################
      
 ############################ DATALOADERS ###########################
@@ -262,6 +268,8 @@ for epoch in range(epochs):
         cfg.NUM_SHOTS = 16
         cfg.SEED = 1
         cfg.SUBSAMPLE_CLASSES = 'all'
+        if dataset == Fungi_dataset:#change
+            cfg.USE_PATCHES = args.use_patches
         dataset_class = dataset_classes[dataset]
         dset = dataset_class(cfg)
         test_xform = get_test_transform()
@@ -408,6 +416,8 @@ for epoch in range(epochs):
         ### centroid of gpt descriptions
         if args.gpt_centroid_eval:
             gpt_descriptions = gpt_helpers.get_gpt_descriptions(dataset=dataset)
+            #print("dset.classnames：",dset.classnames)
+            #print("gpt_descriptions:",gpt_descriptions)
             text_features = gpt_helpers.get_gpt_centroids(
                 gpt_descriptions, dset.classnames, model_copy, tokenizer)
             print('GPT descriptions centroid')
@@ -424,7 +434,7 @@ for epoch in range(epochs):
                 with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
                     v = F.normalize(
                         gpt_helpers.encode_text_wrapper(
-                            model_copy, _descriptions, tokenizer
+                            model_copy, _descriptions, tokenizer,use_raw=False
                         )
                     )
                 scores[:, i] = (image_features.float().cuda() @ v.T).mean(dim=1)
@@ -432,6 +442,34 @@ for epoch in range(epochs):
             print('classify by description score averaging')
             metrics.append('gpt-score-averaging')
             accs.append(acc4)
+
+            ### centroid of raw gpt descriptions
+            if args.raw_gpt_centroid_eval:
+                gpt_raw_descriptions = gpt_helpers.get_gpt_raw_descriptions(dataset= dataset)
+                text_features = gpt_helpers.get_gpt_centroids(
+                    gpt_raw_descriptions, dset.classnames, model_copy, tokenizer,use_raw=True)
+                print('GPT descriptions centroid',)
+                acc5 = _evaluate(image_features, text_features, y_truth)
+                metrics.append('raw-gpt-centroids')
+                accs.append(acc5)
+            
+            ### classify by raw description score averaging
+            if args.raw_gpt_score_averaging_eval:
+                scores = torch.zeros(image_features.shape[0], len(dset.classnames)).cuda()
+                for i, c in enumerate(dset.classnames):
+                    classname = gpt_helpers.transform_classname(replace_underscores(c))
+                    _descriptions = gpt_raw_descriptions[classname]
+                    with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
+                        v = F.normalize(
+                            gpt_helpers.encode_text_wrapper(
+                                model_copy, _descriptions, tokenizer,use_raw=True
+                            )
+                        )
+                    scores[:, i] = (image_features.float().cuda() @ v.T).mean(dim=1)
+                acc6 = (scores.max(1).indices == y_truth.cuda()).float().mean().item() * 100.
+                metrics.append('raw-gpt-score-averaging')
+                accs.append(acc6)
+            
         
         ### no token offset smart prompt choices 6 ensemble
         

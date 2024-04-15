@@ -3,18 +3,19 @@ import argparse
 def get_arg_parser():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--dataset', default = '', type =str) # dataset to train on
-    parser.add_argument('--bs', default = 64, type =int)       # batch size
+    parser.add_argument('--bs', default = 4, type =int)       # batch size
     parser.add_argument('--seed', default = 1, type =int)     # random seed (1, 2, or 3)
     parser.add_argument('--accum_iter', default = 1, type =int) # for simulated large batch
     parser.add_argument('--lr', default = 2e-5, type =float)    # learning rate
     parser.add_argument('--wd', default = 1e-5, type =float)    # weight decay (l2 reg)
-    parser.add_argument('--shots', default = 16, type =int)
+    parser.add_argument('--shots', default = 4, type =int)
     
     parser.add_argument('--d', default = 512, type =int) # dimension of CLIP embedding
     parser.add_argument('--modelname', default = 'ViT-B-16', type =str)
     parser.add_argument('--pretrained', default = 'openai', type =str)
-    parser.add_argument('--cache_dir', default = "", type =str)
-    parser.add_argument('--data_dir', default = "", type =str)
+    parser.add_argument('--cache_dir', default = "/home/y/yangxi/proj/visualrep/code/word_soups_bio/cache", type =str)
+    parser.add_argument('--data_dir', default = "/home/y/yangxi/proj/visualrep/code/word_soups/data", type =str)
+    parser.add_argument('--use_patches', default = True, type=bool) #whether patches for FungiSmall
     
     parser.add_argument('--n_epochs', default = 1, type = int)
     parser.add_argument('--iters_per_epoch', default = 750, type = int) # different for every dataset
@@ -62,5 +63,6 @@ def get_arg_parser():
     parser.add_argument('--teacher_temp', default = 100.0, type=float)
     parser.add_argument('--init_lam', default = 0.0, type=float)
     parser.add_argument('--skip_ema_iters', default = 0, type=int)
+    #parser.add_argument('--use_patches', default = True, type=bool)
     
     return parser

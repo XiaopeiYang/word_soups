@@ -1,0 +1,44 @@
+{
+    "Carbendazim": [
+        "curly germination phenotype, chaotic germination tube growth",
+        "spores shape: round, smaller than usual, often hidden by tubes",
+        "spores distribution: rather isolated, with a clear tendency to form clusters",
+        "germination tubes shape: curly, with several branching events, short",
+        "germination tubes distribution: several tubes per spore, tubes distribution and growth is chaotic, tubes tend to create agglomerates around the spore"
+    ],
+    "Caspofungin": [
+        "swelling star phenotype, swelling spores with several germination tubes around",
+        "spores shape: swelling, round, larger than usual",
+        "spores distribution: isolated spores, some overlap possible",
+        "germination tubes shape: very short, at most one branching event",
+        "germination tubes distribution: several tubes per spore, tubes grow from a few localized positions on spore surface, often two germination events at 180 degree"
+    ],
+    "GWT1": [
+        "pearl necklace phenotype, germination tubes look like pebbles",
+        "spores shape: round, large",
+        "spores distribution: isolated spores, some overlap possible",
+        "germination tubes shape: tubes look like a line of pebbles along a necklace, short, thicker than usual",
+        "germination tubes distribution: one or two tubes per spore, growing from opposite points on the spore surface, at most one branching event"
+    ],
+    "GermTube": [
+        "only spores, no germ tube growth",
+        "spores shape: round, small, of rather uniform size and shape",
+        "spores distribution: isolated spores, very little overlap",
+        "germination tubes shape: extremely short to non-existent, no branching events, straight",
+        "germination tubes distribution: zero to one tube per spore"
+    ],
+    "Mycelium": [
+        "mycelium growth, branching structures, no compound effects",
+        "spores shape: small and round, often hard to detect because covered by branching tubes",
+        "spores distribution: spores exist only as a part of a very large overlapping branching structure",
+        "germination tubes shape: extremely long, with several branching events, growing rather linearly with possibly some irregular curly patterns",
+        "germination tubes distribution: all tubes branch, overlap and connect, growing very far out of their original spore, creating a branching structure with rather stable density across the whole image"
+    ],
+    "Tebuconazole": [
+        "swelling spores of different shapes, from round to ovoidal, irregular distribution of germination tubes",
+        "spores shape: swelling, variable shape and size, some spores are ovoidal",
+        "spores distribution: isolated spores, some overlap possible",
+        "germination tubes shape: short, can have more than one branching event, can be either straight or curly",
+        "germination tubes distribution: two to several tubes per spore, tubes grow from a few localized points irregularly distributed on the spore surface"
+    ]
+}

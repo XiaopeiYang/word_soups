@@ -5,13 +5,14 @@ from collections import OrderedDict
 from dassl.data.datasets import DATASET_REGISTRY, Datum, DatasetBase
 from dassl.utils import listdir_nohidden, mkdir_if_missing
 
-from .oxford_pets import OxfordPets
+from .fungi_small import FungiSmall
 import math, torch
 
 @DATASET_REGISTRY.register()
 class ImageNet(DatasetBase):
 
     dataset_dir = "imagenet"
+    use_patches=False
 
     def __init__(self, cfg):
         root = os.path.abspath(os.path.expanduser(cfg.ROOT))
@@ -19,6 +20,7 @@ class ImageNet(DatasetBase):
         self.image_dir = os.path.join(self.dataset_dir, "images")
         self.preprocessed = os.path.join(self.dataset_dir, "preprocessed.pkl")
         self.split_fewshot_dir = os.path.join(os.getcwd(), "datasets/splits/imagenet")
+        self.use_patches= False
         mkdir_if_missing(self.split_fewshot_dir)
 
         if os.path.exists(self.preprocessed):
@@ -56,8 +58,8 @@ class ImageNet(DatasetBase):
                     pickle.dump(data, file, protocol=pickle.HIGHEST_PROTOCOL)
 
         subsample = cfg.SUBSAMPLE_CLASSES
-        train, test = OxfordPets.subsample_classes(train, test, subsample=subsample)
-        train, test = OxfordPets.fix_image_paths([train, test], "imagenet", root)
+        train, test = FungiSmall.subsample_classes(train, test, subsample=subsample)
+        train, test = FungiSmall.fix_image_paths([train, test], "imagenet", root)
 
         super().__init__(train_x=train, val=test, test=test)
 

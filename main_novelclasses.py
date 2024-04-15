@@ -16,30 +16,51 @@ from source.transforms import *
 from source.models import *
 from source.trainer import *
 from argparse_parameters import get_arg_parser
+from config import Fungi_dataset
+#Fungi_dataset = 'FungiSmall'#chage
 
 parser = get_arg_parser()
 parser.add_argument('--subsample_classes', default = 'base', type=str)
 parser.add_argument('--openai_eval', default = 0, type=int)
 parser.add_argument('--gpt_centroid_eval', default = 0, type=int)
 parser.add_argument('--gpt_score_averaging_eval', default = 0, type=int)
+parser.add_argument('--raw_gpt_centroid_eval', default = 0, type=int)
+parser.add_argument('--raw_gpt_score_averaging_eval', default = 0, type=int)
 parser.add_argument('--soup_eval', default = 0, type=int)
 parser.add_argument('--token_offset_eval', default = 0, type=int)
 args = parser.parse_args()
 print(args)
 
 # use default descriptor files
-default_word_descriptor_file = 'cache/{}word_soup_descriptors_seed{}__{}_{}.list'.format(
-    args.dataset,
-    args.seed, 
-    args.modelname, 
-    args.pretrained
-)
-default_desc_descriptor_file = 'cache/{}good_descriptions_seed{}__{}_{}.list'.format(
-    args.dataset,
-    args.seed, 
-    args.modelname, 
-    args.pretrained
-)
+if args.dataset != Fungi_dataset:#change
+    default_word_descriptor_file = 'cache/{}word_soup_descriptors_seed{}__{}_{}.list'.format(
+        args.dataset,
+        args.seed, 
+        args.modelname, 
+        args.pretrained
+    )
+    default_desc_descriptor_file = 'cache/{}good_descriptions_seed{}__{}_{}.list'.format(
+        args.dataset,
+        args.seed, 
+        args.modelname, 
+        args.pretrained
+    )
+else:
+    default_word_descriptor_file = 'cache/{}_usepatches_{}word_soup_descriptors_seed{}__{}_{}.list'.format(
+        args.dataset,
+        False, #change
+        args.seed, 
+        args.modelname, 
+        args.pretrained
+    )
+    default_desc_descriptor_file = 'cache/{}_usepatches_{}good_descriptions_seed{}__{}_{}.list'.format(
+        args.dataset,
+        False,#change
+        args.seed, 
+        args.modelname, 
+        args.pretrained
+    )
+     
 
 word_descriptors = torch.load(default_word_descriptor_file)
 good_descriptors = torch.load(default_desc_descriptor_file)
@@ -58,8 +79,12 @@ base_cfg.ROOT = args.data_dir
 base_cfg.NUM_SHOTS = 16
 base_cfg.SEED = args.seed
 base_cfg.SUBSAMPLE_CLASSES = args.subsample_classes
+if args.dataset == Fungi_dataset:
+    base_cfg.USE_PATCHES = args.use_patches
 new_cfg = deepcopy(base_cfg)
 new_cfg.SUBSAMPLE_CLASSES = 'new'
+if args.dataset == Fungi_dataset:
+    new_cfg.USE_PATCHES = args.use_patches
 device = "cuda"
 bs = args.bs
 modelname = args.modelname
@@ -263,7 +288,7 @@ for epoch in range(epochs):
             model_copy.reset_text(text_dic[mode])
                 
             ### Zero-shot
-            print('a photo of ZS')
+            print('a photo of ZS',mode)
             with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
                 text_features = model_copy.get_text_prototypes()
             metric_name = 'ZS'
@@ -275,7 +300,7 @@ for epoch in range(epochs):
                 text_features = gpt_helpers.get_openai_manual_prompt_template_centroids(
                     dsets[mode].classnames, model_copy, args.dataset, tokenizer
                 )
-                print('openai manual prompt ensemble centroid ZS')
+                print('openai manual prompt ensemble centroid ZS',mode)
                 acc2 = _evaluate(image_features, text_features, y_truth)
                 accs[mode]['ensemble'] = acc2
             
@@ -284,7 +309,7 @@ for epoch in range(epochs):
                 gpt_descriptions = gpt_helpers.get_gpt_descriptions(dataset=args.dataset)
                 text_features = gpt_helpers.get_gpt_centroids(
                     gpt_descriptions, dsets[mode].classnames, model_copy, tokenizer)
-                print('GPT descriptions centroid')
+                print('GPT descriptions centroid',mode)
                 acc3 = _evaluate(image_features, text_features, y_truth)
                 accs[mode]['gpt-centroids'] = acc3
             
@@ -297,12 +322,37 @@ for epoch in range(epochs):
                     with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
                         v = F.normalize(
                             gpt_helpers.encode_text_wrapper(
-                                model_copy, _descriptions, tokenizer
+                                model_copy, _descriptions, tokenizer,use_raw=False
                             )
                         )
                     scores[:, i] = (image_features.float().cuda() @ v.T).mean(dim=1)
                 acc4 = (scores.max(1).indices == y_truth.cuda()).float().mean().item() * 100.
                 accs[mode]['gpt-score-averaging'] = acc4
+
+            ### centroid of raw gpt descriptions
+            if args.raw_gpt_centroid_eval:
+                gpt_raw_descriptions = gpt_helpers.get_gpt_raw_descriptions(dataset=args.dataset)
+                text_features = gpt_helpers.get_gpt_centroids(
+                    gpt_raw_descriptions, dsets[mode].classnames, model_copy, tokenizer,use_raw=True)
+                print('GPT descriptions centroid',mode)
+                acc5 = _evaluate(image_features, text_features, y_truth)
+                accs[mode]['raw-gpt-centroids'] = acc5
+            
+            ### classify by raw description score averaging
+            if args.raw_gpt_score_averaging_eval:
+                scores = torch.zeros(image_features.shape[0], len(dsets[mode].classnames)).cuda()
+                for i, c in enumerate(dsets[mode].classnames):
+                    classname = gpt_helpers.transform_classname(replace_underscores(c))
+                    _descriptions = gpt_raw_descriptions[classname]
+                    with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
+                        v = F.normalize(
+                            gpt_helpers.encode_text_wrapper(
+                                model_copy, _descriptions, tokenizer,use_raw=True
+                            )
+                        )
+                    scores[:, i] = (image_features.float().cuda() @ v.T).mean(dim=1)
+                acc6 = (scores.max(1).indices == y_truth.cuda()).float().mean().item() * 100.
+                accs[mode]['raw-gpt-score-averaging'] = acc6
             
             ### soups
             def _soup_evaluation(metric_name, descriptors):
@@ -328,7 +378,7 @@ for epoch in range(epochs):
         for metric in accs['base'].keys():
             print(metric, end=',')
             for mode in ['base','new']:
-                print(accs[mode][metric], end=',')
+                print(mode, accs[mode][metric], end=',')
             print()
         
     del model_copy, ft_sd

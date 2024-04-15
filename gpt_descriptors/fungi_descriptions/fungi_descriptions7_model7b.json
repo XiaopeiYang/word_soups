@@ -1,0 +1,56 @@
+{
+    "Carbendazim": [
+        "thin, rod-shaped organisms with rounded ends",
+        "irregularly shaped with a rough, granular surface",
+        "long, thin filaments with a twisted, helical shape",
+        "small, round colonies with a smooth, even surface",
+        "branching, tree-like structures with thick, fibrous stalks",
+        "irregularly shaped with a rough, bumpy surface",
+        "large, spherical cells with a smooth, transparent membrane"
+    ],
+    "Caspofungin": [
+        "thin, rod-shaped yeast cells",
+        "large, oval-shaped yeast cells",
+        "branching, filamentous structures",
+        "thick, round yeast cells",
+        "irregularly shaped, clumped cells",
+        "long, thin hyphae",
+        "dense, round colonies"
+    ],
+    "GWT1": [
+        "small, round cells with smooth edges",
+        "cell membranes are thin and continuous",
+        "cell contents are homogeneous",
+        "no visible organelles or structures",
+        "cells are tightly packed together",
+        "no significant variation in size or shape",
+        "appear as small dots or specks under high magnification"
+    ],
+    "GermTube": [
+        "irregularly shaped, like a tiny egg",
+        "flat, like a disk",
+        "long, thin, and curved",
+        "branching, like a tree",
+        "clumped together, like a bunch of grapes",
+        "filamentous, like a strand of hair",
+        "swirling, like a whirlpool"
+    ],
+    "Mycelium": [
+        "thread-like structures with irregular shapes",
+        "branching networks with interconnected branches",
+        "thin, delicate filaments with rounded ends",
+        "clumped masses with irregular boundaries",
+        "web-like structures with intricate patterns",
+        "fibrous networks with a honeycomb-like texture",
+        "irregular, amorphous shapes with no clear boundaries"
+    ],
+    "Tebuconazole": [
+        "crystalline structures with irregular shapes",
+        "needle-like crystals with sharp edges",
+        "irregularly shaped crystals with smooth surfaces",
+        "small, spherical particles with smooth surfaces",
+        "large, irregularly shaped crystals with rough edges",
+        "needle-like crystals with a rough, porous surface",
+        "small, irregularly shaped crystals with a glossy surface"
+    ]
+}

@@ -36,24 +36,25 @@ def modify_descriptor(descriptor, apply_changes):
 def load_gpt_descriptions(hparams, classes_to_load=None):
     gpt_descriptions_unordered = load_json(hparams['descriptor_fname'])
     unmodify_dict = {}
-    
-    
+    gpt_raw_descriptions = {}  # 
+
     if classes_to_load is not None: 
         gpt_descriptions = {c: gpt_descriptions_unordered[c] for c in classes_to_load}
+        gpt_raw_descriptions = {c: list(gpt_descriptions_unordered[c]) for c in classes_to_load}  # 
     else:
         gpt_descriptions = gpt_descriptions_unordered
+        gpt_raw_descriptions = {k: list(v) for k, v in gpt_descriptions_unordered.items()}  # 
+
     if hparams['category_name_inclusion'] is not None:
-        if classes_to_load is not None:
-            keys_to_remove = [k for k in gpt_descriptions.keys() if k not in classes_to_load]
-            for k in keys_to_remove:
-                print(f"Skipping descriptions for \"{k}\", not in classes to load")
-                gpt_descriptions.pop(k)
-            
+        keys_to_remove = [k for k in gpt_descriptions.keys() if classes_to_load is not None and k not in classes_to_load]
+        for k in keys_to_remove:
+            print(f"Skipping descriptions for \"{k}\", not in classes to load")
+            gpt_descriptions.pop(k)
+
         for i, (k, v) in enumerate(gpt_descriptions.items()):
             if len(v) == 0:
                 v = ['']
-            
-            
+
             word_to_add = wordify(k)
             
             if (hparams['category_name_inclusion'] == 'append'):
@@ -66,11 +67,13 @@ def load_gpt_descriptions(hparams, classes_to_load=None):
             unmodify_dict[k] = {build_descriptor_string(item): item for item in v}
                 
             gpt_descriptions[k] = [build_descriptor_string(item) for item in v]
-            
+
             # print an example the first time
             if i == 0: #verbose and 
                 print(f"\nExample description for class {k}: \"{gpt_descriptions[k][0]}\"\n")
-    return gpt_descriptions, unmodify_dict
+                print(f"\Raw description for class {k}: \"{gpt_raw_descriptions[k][0]}\"\n")
+
+    return gpt_descriptions, unmodify_dict, gpt_raw_descriptions
 
 
 def seed_everything(seed: int):

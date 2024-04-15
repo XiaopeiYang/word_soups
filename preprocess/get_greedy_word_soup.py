@@ -17,6 +17,8 @@ from source.transforms import *
 from source.models import *
 from source.trainer import *
 from argparse_parameters import get_arg_parser
+from config import Fungi_dataset
+#Fungi_dataset = 'FungiSmall'#chage
 
 parser = get_arg_parser()
 parser.add_argument('--subsample_classes', default = 'all', type=str)
@@ -39,6 +41,8 @@ base_cfg.ROOT = args.data_dir
 base_cfg.NUM_SHOTS = 16
 base_cfg.SEED = args.seed
 base_cfg.SUBSAMPLE_CLASSES = args.subsample_classes
+if args.dataset == Fungi_dataset:#chage
+    base_cfg.USE_PATCHES = args.use_patches
 device = "cuda"
 bs = args.bs
 modelname = args.modelname
@@ -168,15 +172,27 @@ for index in range(n_descriptors):
     print('Final word chain acc: {}'.format(running_accs[-1]))
 
 good_descriptions = [di+'.' for di in good_descriptions]
-torch.save(
-    good_descriptions, 
-    'cache/{}word_soup_descriptors_seed{}_{}_{}_{}.list'.format(
-        '' if args.subsample_classes == 'all' else dataset,
-        args.seed, 
-        '' if checkpoint == '' else checkpoint.split('/')[-1], 
-        modelname,
-        pretrained
+if args.dataset != Fungi_dataset:
+    torch.save(
+        good_descriptions, 
+        'cache/{}word_soup_descriptors_seed{}_{}_{}_{}.list'.format(
+            '' if args.subsample_classes == 'all' else dataset,
+            args.seed, 
+            '' if checkpoint == '' else checkpoint.split('/')[-1], 
+            modelname,
+            pretrained
+        )
     )
-)
-
+else:
+    torch.save(
+        good_descriptions, 
+        'cache/{}_usepatches_{}word_soup_descriptors_seed{}_{}_{}_{}.list'.format(
+            '' if args.subsample_classes == 'all' else dataset,
+            args.use_patches,
+            args.seed, 
+            '' if checkpoint == '' else checkpoint.split('/')[-1], 
+            modelname,
+            pretrained
+        )
+    )
 

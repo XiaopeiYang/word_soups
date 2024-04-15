@@ -1,0 +1,68 @@
+{
+    "Carbendazim": [
+        "thin, rod-shaped organisms with rounded ends",
+        "dark, irregularly-shaped bodies with a rough surface",
+        "small, oval-shaped organisms with a distinct halo",
+        "large, irregularly-shaped cells with a prominent nucleus",
+        "thin, branching filaments with a rounded tip",
+        "small, spherical organisms with a smooth surface",
+        "irregularly-shaped cells with a prominent nucleus and cytoplasm",
+        "thick, irregularly-shaped filaments with a distinct boundary",
+        "small, oval-shaped organisms with a faint halo"
+    ],
+    "Caspofungin": [
+        "thin, rod-shaped yeast cells",
+        "large, oval-shaped yeast cells",
+        "branching, filamentous structures",
+        "thick, irregularly-shaped yeast cells",
+        "small, round yeast cells",
+        "long, thin yeast cells",
+        "clumped, irregularly-shaped yeast cells",
+        "thread-like structures",
+        "irregular, amorphous shapes"
+    ],
+    "GWT1": [
+        "small, round cells with smooth edges",
+        "cell membranes are thin and continuous",
+        "cell contents are homogeneous",
+        "no visible organelles or structures",
+        "cells are tightly packed together",
+        "no significant variation in size",
+        "no visible staining or pigmentation",
+        "cells have a uniform shape",
+        "no signs of budding or division"
+    ],
+    "GermTube": [
+        "irregularly shaped, like a tiny egg",
+        "flat, like a disk",
+        "long, thin, and curved",
+        "branching, like a tree",
+        "clumped together, like a bunch of grapes",
+        "filamentous, like a strand of hair",
+        "round and smooth, like a ball",
+        "fragmented, like broken glass",
+        "swirling, like a whirlpool"
+    ],
+    "Mycelium": [
+        "thread-like structures with irregular shapes",
+        "branching networks with interconnected branches",
+        "thin, delicate filaments with rounded ends",
+        "clumped together with irregular shapes",
+        "feathery or fluffy appearance with branching tips",
+        "web-like structures with intricate patterns",
+        "thick, dense networks with rounded edges",
+        "fibrous structures with a honeycomb-like appearance",
+        "irregular, amorphous shapes with no clear pattern"
+    ],
+    "Tebuconazole": [
+        "crystalline structures with irregular shapes",
+        "needle-like crystals with sharp edges",
+        "irregularly shaped crystals with smooth surfaces",
+        "needle-like crystals with a rough surface",
+        "amorphous mass with no distinct shape",
+        "thin films with a smooth surface",
+        "large crystals with a hexagonal shape",
+        "small crystals with a spherical shape",
+        "irregularly shaped crystals with a rough surface"
+    ]
+}

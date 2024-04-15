@@ -9,6 +9,30 @@ import random
 import os
 from copy import deepcopy
 
+from source.imp_samp import Patcher
+
+
+
+n_crops_per_image = 7
+imp_samp_params = {
+    "patch_size": 256,
+    "reduce_factor": 1,
+    "scale_dog": 1,
+    "grid_sep": 128,
+    "map_type": "importance",
+    "patches_per_image": n_crops_per_image,
+    "blur_samp_map": False,
+    "seed": 123
+}
+
+def important_crops_per_image(image, n_crops,imp_samp_params):
+    crop_list=[]
+    patcher = Patcher(image_path=image, **imp_samp_params)
+    for i in range(n_crops):
+        crop = next(patcher)
+        crop_list.append(crop)    
+    return crop_list
+
 def replace_underscores(s):
         new_s = ''
         for si in s:
@@ -45,6 +69,7 @@ def dassl_dataset_conversion(dset, xform, mode, shots=None):
     labels = [t.label for t in modes[mode]]
     impaths = [t.impath for t in modes[mode]]
     imgs = [(a, b) for a,b in zip(impaths, labels)]
+    use_patches = dset.use_patches
     
     if shots is not None:
         print('CAUTION ! limiting dataset to {} shots. This should only be done on informal experiments.'.format(shots))
@@ -56,13 +81,16 @@ def dassl_dataset_conversion(dset, xform, mode, shots=None):
                 labels_dic[label].append(impath)
         imgs = []
         for label in labels_dic:
+            #print("len(labels_dic[label]):",len(labels_dic[label])) 
+            #print("labels_dic[label]:",labels_dic[label]) 
+            #print("label:",label) 
             assert len(labels_dic[label]) >= shots
             random.shuffle(labels_dic[label])
             impaths_sub = labels_dic[label][:shots]
             for impath in impaths_sub:
                 imgs.append((impath, label))
                 
-    return BaseDataset(imgs, xform)
+    return BaseDataset(imgs, xform,use_patches=use_patches)
 
 def get_imagenet21k(
     xform,
@@ -130,6 +158,7 @@ class FastRandomSampler(torch.utils.data.sampler.Sampler):
         self.batch_size = batch_size
         self.num_times = (num_iters // self.num_batches) + 1
         self.samples_per_class = samples_per_class
+        #self.labels = [tup[1] for tup in dset.imgs]
         self.labels = [tup[1] for tup in dset.imgs]
         self.label_dic = {}
         for index, label in enumerate(self.labels):
@@ -169,12 +198,13 @@ class FastRandomSampler(torch.utils.data.sampler.Sampler):
                         random.shuffle(label_list)
                 
         return iter(self.ret)
-    
+""" 
 class BaseDataset(torch.utils.data.Dataset):
-    def __init__(self, imgs, transform, metadata=None):
+    def __init__(self, imgs, transform, metadata=None,use_patches=False):
         self.transform = transform
         self.imgs = imgs
         self.metadata = metadata
+        self.use_patches=use_patches
 
     def __len__(self):
         return len(self.imgs)
@@ -196,7 +226,62 @@ class BaseDataset(torch.utils.data.Dataset):
             return im, target
         else:
             return im, target, self.metadata[index]
+"""
+class BaseDataset(torch.utils.data.Dataset):
+    def __init__(self, imgs, transform, metadata=None, use_patches=False, imp_samp_params=imp_samp_params):
+        self.transform = transform
+        self.metadata = metadata
+        self.use_patches = use_patches
+        self.imp_samp_params = imp_samp_params
+
+        # Generate all crops or the entire image list on initialization
+        self.all_images, self.all_labels = self._generate_all_images(imgs)
+
+    def _generate_all_images(self, imgs):
+        all_images = []
+        all_labels = []
+        for img_path, label in imgs:
+            if self.use_patches:
+                # Generate and store all important crops
+                patches = important_crops_per_image(img_path, n_crops_per_image, self.imp_samp_params)
+                all_images.extend(patches)
+                all_labels.extend([label] * len(patches))  # Each crop is assigned the same label
+            else:
+                all_images.append(img_path)  # If no cropping is used, store the image path directly
+                all_labels.append(label)
+        return all_images, all_labels
+
+    def __len__(self):
+        return len(self.all_images)
+
+    def __getitem__(self, index):
+        img_path_or_obj = self.all_images[index]
+        label = self.all_labels[index]
         
+        # If the image is a path (not cropped), open the image
+        if isinstance(img_path_or_obj, str):
+            imraw = PIL.Image.open(img_path_or_obj)
+            if imraw.mode != 'RGB':
+                imraw = imraw.convert('RGB')
+        else:
+            # Otherwise, the image is already a cropped PIL image object
+            imraw = img_path_or_obj
+            if imraw.mode != 'RGB':
+                imraw = imraw.convert('RGB')
+
+        if self.transform:
+            im = self.transform(imraw)
+        else:
+            im = imraw
+        
+        if self.metadata is not None:
+            return im, label, self.metadata[index]
+        return im, label
+
+    @property
+    def imgs(self):
+               return list(zip(self.all_images,self.all_labels))
+   
 def concat_datasets(dset1, dset2):
     '''concatenate the two datasets of type BaseDataset. '''
     imgs = deepcopy(dset1.imgs)

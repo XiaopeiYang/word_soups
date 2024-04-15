@@ -19,6 +19,9 @@ from source.trainer import *
 from argparse_parameters import get_arg_parser
 import sys
 
+#Fungi_dataset = 'FungiSmall'#chage
+from config import Fungi_dataset
+
 parser = get_arg_parser()
 parser.add_argument('--subsample_classes', default = 'all', type=str)
 args = parser.parse_args()
@@ -32,6 +35,8 @@ base_cfg.ROOT = args.data_dir
 base_cfg.NUM_SHOTS = 16
 base_cfg.SEED = args.seed
 base_cfg.SUBSAMPLE_CLASSES = args.subsample_classes
+if args.dataset == Fungi_dataset:
+    base_cfg.USE_PATCHES = args.use_patches
 device = "cuda"
 bs = args.bs
 modelname = args.modelname
@@ -142,16 +147,29 @@ for i in tqdm(range(1, len(descriptions))):
         running_text_feature_list.pop()
 
 print('number of descriptors in soup: ', len(good_descriptions))
-torch.save(
-    good_descriptions, 
-    'cache/{}good_descriptions_seed{}_{}_{}_{}.list'.format(
-        '' if args.subsample_classes == 'all' else dataset,
-        args.seed, 
-        checkpoint, 
-        modelname,
-        pretrained
+if args.dataset != Fungi_dataset:
+    torch.save(
+        good_descriptions, 
+        'cache/{}good_descriptions_seed{}_{}_{}_{}.list'.format(
+            '' if args.subsample_classes == 'all' else dataset,
+            args.seed, 
+            checkpoint, 
+            modelname,
+            pretrained
+        )
     )
-)
+else:
+    torch.save(
+        good_descriptions, 
+        'cache/{}_usepatches_{}good_descriptions_seed{}_{}_{}_{}.list'.format(
+            '' if args.subsample_classes == 'all' else dataset,
+            args.use_patches,
+            args.seed, 
+            checkpoint, 
+            modelname,
+            pretrained
+        )
+    )
 
 
 

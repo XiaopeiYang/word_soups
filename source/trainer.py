@@ -5,21 +5,9 @@ import torch.nn.functional as F
 import open_clip
 from copy import deepcopy
 
-from source.datasets import oxford_pets 
-from source.datasets import oxford_flowers
-from source.datasets import fgvc_aircraft
-from source.datasets import dtd
-from source.datasets import eurosat
-from source.datasets import stanford_cars
-from source.datasets import food101
-from source.datasets import sun397
-from source.datasets import caltech101
-from source.datasets import ucf101
 from source.datasets import imagenet
-from source.datasets import imagenetv2
-from source.datasets import imagenet_sketch
-from source.datasets import imagenet_a
-from source.datasets import imagenet_r
+
+from source.datasets import fungi_small
 
 from pytorch_metric_learning import miners, losses
 
@@ -28,43 +16,18 @@ from source.losses import *
 from source.samplers import *
 from source.transforms import *
 from source.models import *
+from config import Fungi_dataset
 
 prompt_strings = {
     'ImageNet':'a photo of a {}.',
-    'Caltech101':'a photo of a {}.',
-    'OxfordPets':'a photo of a {}, a type of pet.',
-    'StanfordCars':'a photo of a {}.',
-    'Flowers102':'a photo of a {}, a type of flower.',
-    'Food101':'a photo of {}, a type of food.',
-    'FGVCAircraft':'a photo of a {}, a type of aircraft.',
-    'SUN397':'a photo of a {}.',
-    'DTD':'a photo of a {} texture.',
-    'EuroSAT':'a photo of {}, from a satellite.',
-    'UCF101':'a photo of a person doing {}.',
-    'ImageNetV2':'a photo of a {}.',
-    'ImageNetSketch':'a photo of a {}.',
-    'ImageNetA':'a photo of a {}.',
-    'ImageNetR':'a photo of a {}.'
+    Fungi_dataset:'a photo of a {}， a type of fungi.'
 }
 
-test_only_datasets = ['ImageNetV2', 'ImageNetSketch', 'ImageNetA', 'ImageNetR']
+#test_only_datasets = ['ImageNetV2', 'ImageNetSketch', 'ImageNetA', 'ImageNetR']
 
 dataset_classes = {
     'ImageNet':imagenet.ImageNet,
-    'Caltech101':caltech101.Caltech101,
-    'OxfordPets':oxford_pets.OxfordPets,
-    'StanfordCars':stanford_cars.StanfordCars,
-    'Flowers102':oxford_flowers.OxfordFlowers,
-    'Food101':food101.Food101,
-    'FGVCAircraft':fgvc_aircraft.FGVCAircraft,
-    'SUN397':sun397.SUN397,
-    'DTD':dtd.DescribableTextures,
-    'EuroSAT':eurosat.EuroSAT,
-    'UCF101':ucf101.UCF101,
-    'ImageNetV2':imagenetv2.ImageNetV2,
-    'ImageNetSketch':imagenet_sketch.ImageNetSketch,
-    'ImageNetA':imagenet_a.ImageNetA,
-    'ImageNetR':imagenet_r.ImageNetR
+    Fungi_dataset:fungi_small.FungiSmall
 }
 
 def get_captions_from_file(args, base_dset, test_xform, 

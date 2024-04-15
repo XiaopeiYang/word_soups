@@ -1,0 +1,42 @@
+{
+    "Carbendazim": [
+        "crystalline structure",
+        "rod-shaped molecules",
+        "presence of sulfur atoms",
+        "absence of nitrogen atoms",
+        "unique shape and size compared to other compounds"
+    ],
+    "Caspofungin": [
+        "presence of hyphae (thin, branching filaments)",
+        "absence of chlamydospores (specialized structures that can be used to identify some fungal species)",
+        "absence of conidiophores (structures that produce spores)",
+        "presence of pseudocapillaries (abnormal branches of hyphae that resemble capillaries)",
+        "caspofungin is typically a large, irregularly shaped fungus"
+    ],
+    "GWT1": [
+        "rod-shaped structure with a rounded end",
+        "clearly visible nucleus",
+        "mitochondria with a distinctive dumbbell shape",
+        "many small vesicles scattered throughout the cytoplasm",
+        "no clearly defined cell membrane"
+    ],
+    "GermTube": [
+        "rod-shaped structure",
+        "small size (typically around 1-5 micrometers in length)",
+        "presence of a cell wall",
+        "ability to move using flagella",
+        "positive end (where the flagella attach) and negative end (where the flagella detach)"
+    ],
+    "Mycelium": [
+        "thread-like hyphae",
+        "branching patterns",
+        "vegetative structures such as conidiophores and cleistothecia",
+        "absence of chlorophyll",
+        "presence of melanin pigment"
+    ],
+    "Tebuconazole": [
+        "crystalline structure with a distinctive shape and size",
+        "presence of sulfur atoms in the molecular structure",
+        "lack of aromatic rings or other functional groups that might give rise to color"
+    ]
+}

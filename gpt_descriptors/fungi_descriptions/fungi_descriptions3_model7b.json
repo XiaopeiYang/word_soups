@@ -1,0 +1,32 @@
+{
+    "Carbendazim": [
+        "thread-like structures with rounded ends",
+        "needle-like crystals with irregular shapes",
+        "irregularly shaped particles with smooth surfaces"
+    ],
+    "Caspofungin": [
+        "thread-like structures with irregular shapes",
+        "thin, branching filaments with rounded ends",
+        "delicate, branching networks with small buds"
+    ],
+    "GWT1": [
+        "small, round cells with smooth edges",
+        "irregularly shaped cells with varying sizes",
+        "elongated cells with prominent nucleus"
+    ],
+    "GermTube": [
+        "irregularly shaped, like a tiny egg",
+        "flat, disk-like structure with a slight curve",
+        "tiny, delicate threads radiate from a central point"
+    ],
+    "Mycelium": [
+        "thread-like structures with irregular shapes",
+        "clumped, branching fibers with small buds",
+        "delicate, web-like networks with many nodes"
+    ],
+    "Tebuconazole": [
+        "needle-like crystals with irregular shapes",
+        "small, spherical particles with smooth surfaces",
+        "large, irregularly-shaped crystals with rough surfaces"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "Carbendazim": [
+        "thin, rod-shaped organisms with rounded ends",
+        "irregularly shaped with a rough, granular surface",
+        "long, thin filaments with a twisted, helical shape",
+        "small, round colonies with a smooth, even surface",
+        "large, irregularly shaped cells with a prominent nucleus"
+    ],
+    "Caspofungin": [
+        "thin, rod-shaped yeast cells",
+        "large, oval-shaped fungal cells",
+        "branching, filamentous structures",
+        "small, round buds",
+        "irregular, clumped shapes"
+    ],
+    "GWT1": [
+        "small, round cells with smooth edges",
+        "irregular shape with multiple nuclei",
+        "thin, elongated cells with prominent nucleus",
+        "large, darkly stained nuclei with fine chromatin",
+        "small, bud-like structures with a central nucleus"
+    ],
+    "GermTube": [
+        "irregularly shaped, like a tiny egg",
+        "flat, like a disk",
+        "long, thin, and curved",
+        "clumped together, like a bunch of grapes",
+        "branching, like a tree"
+    ],
+    "Mycelium": [
+        "thread-like structures with irregular shapes",
+        "fibrous networks with branching patterns",
+        "clumped, densely packed masses",
+        "delicate, web-like structures",
+        "irregular, amorphous shapes with tiny buds"
+    ],
+    "Tebuconazole": [
+        "crystalline structures with irregular shapes",
+        "needle-like crystals with sharp edges",
+        "irregularly shaped crystals with smooth surfaces",
+        "small, spherical particles with smooth surfaces",
+        "large, irregularly shaped crystals with rough surfaces"
+    ]
+}

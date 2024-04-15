@@ -1,0 +1,1005 @@
+Namespace(dataset='FungiSmall', bs=4, seed=1, accum_iter=1, lr=5e-05, wd=1e-05, shots=4, d=512, modelname='ViT-B-16', pretrained='openai', cache_dir='/home/y/yangxi/proj/visualrep/code/word_soups_bio/cache', data_dir='/home/y/yangxi/proj/visualrep/code/word_soups/data', use_patches=False, n_epochs=1, iters_per_epoch=3, lr_decay=0.0, temp=60.0, optimizer='sgd', loss='ce', label_smoothing=0.0, samples_per_class=1, margin=0.0, adaptive_margin=0.0, ema=0.995, visual_prompt_depth=0, visual_prompt_length=3, text_prompt_length=3, text_prompt_depth=1, train_text_encoder=1, train_visual_encoder=1, layer_start_v=9, layer_start_t=9, maple=0, lora=0, bitfit=0, adapter=0, ssf=0, resblock_adapter=0, rank=4, shallow_prompt_init='a photo of', prompt_lr_multi=10.0, eval_only=0, save_model=0, n_descriptors=-1, checkpoint='', prompt_rand_init=0, suffix_string='', train_with_descriptors=0, teacher_temp=100.0, init_lam=0.0, skip_ema_iters=0, subsample_classes='base', openai_eval=1, gpt_centroid_eval=1, gpt_score_averaging_eval=1, raw_gpt_centroid_eval=1, raw_gpt_score_averaging_eval=1, soup_eval=1, token_offset_eval=1)
+CHOSEN WORD SOUP DESCRIPTORS: 
+ vincent webshots.
+ stripes rangers.
+ jc navy digit.
+ jason sharon.
+ drama maybe garmin.
+ burst np.
+ paul sonic scope.
+ worked slot.
+CHOSEN DESC SOUP ESCRIPTORS: 
+ which can be of different lengths.
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_1.pkl
+SUBSAMPLE BASE CLASSES!
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_1.pkl
+SUBSAMPLE NEW CLASSES!
+CAUTION ! limiting dataset to 4 shots. This should only be done on informal experiments.
+len(dset_base_train):  12
+len(dset_base_test):  9
+len(dset_new_test):  9
+number of base classes:  3
+number of new classes:  3
+prompt tuning with prompt length M=3
+shape of text prompt token vectors: torch.Size([3, 512])
+shape of prefix token vectors: torch.Size([1, 512])
+ optimizer param shapes 
+------------------------
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768, 512])
+torch.Size([768])
+torch.Size([768])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([3, 512])
+------------------------
+There are 2 param groups
+epoch:0 , param_group:0, len: 10, lr:5e-05
+epoch:0 , param_group:1, len: 10, lr:0.0005
+Runing Evaluation ...
+a photo of ZS base
+acc:  22.22222238779068
+Example: a photo of a Carbendazim, a type of fungi
+Example: a bad photo of a Carbendazim, a type of fungi
+Example: a photo of many Carbendazim, a type of fungi
+Example: a sculpture of a Carbendazim, a type of fungi
+Example: a photo of the hard to see Carbendazim, a type of fungi
+Example: a low resolution photo of the Carbendazim, a type of fungi
+Example: a rendering of a Carbendazim, a type of fungi
+Example: graffiti of a Carbendazim, a type of fungi
+Example: a bad photo of the Carbendazim, a type of fungi
+Example: a cropped photo of the Carbendazim, a type of fungi
+Example: a tattoo of a Carbendazim, a type of fungi
+Example: the embroidered Carbendazim, a type of fungi
+Example: a photo of a hard to see Carbendazim, a type of fungi
+Example: a bright photo of a Carbendazim, a type of fungi
+Example: a photo of a clean Carbendazim, a type of fungi
+Example: a photo of a dirty Carbendazim, a type of fungi
+Example: a dark photo of the Carbendazim, a type of fungi
+Example: a drawing of a Carbendazim, a type of fungi
+Example: a photo of my Carbendazim, a type of fungi
+Example: the plastic Carbendazim, a type of fungi
+Example: a photo of the cool Carbendazim, a type of fungi
+Example: a close-up photo of a Carbendazim, a type of fungi
+Example: a black and white photo of the Carbendazim, a type of fungi
+Example: a painting of the Carbendazim, a type of fungi
+Example: a painting of a Carbendazim, a type of fungi
+Example: a pixelated photo of the Carbendazim, a type of fungi
+Example: a sculpture of the Carbendazim, a type of fungi
+Example: a bright photo of the Carbendazim, a type of fungi
+Example: a cropped photo of a Carbendazim, a type of fungi
+Example: a plastic Carbendazim, a type of fungi
+Example: a photo of the dirty Carbendazim, a type of fungi
+Example: a jpeg corrupted photo of a Carbendazim, a type of fungi
+Example: a blurry photo of the Carbendazim, a type of fungi
+Example: a photo of the Carbendazim, a type of fungi
+Example: a good photo of the Carbendazim, a type of fungi
+Example: a rendering of the Carbendazim, a type of fungi
+Example: a Carbendazim in a video game, a type of fungi
+Example: a photo of one Carbendazim, a type of fungi
+Example: a doodle of a Carbendazim, a type of fungi
+Example: a close-up photo of the Carbendazim, a type of fungi
+Example: the origami Carbendazim, a type of fungi
+Example: the Carbendazim in a video game, a type of fungi
+Example: a sketch of a Carbendazim, a type of fungi
+Example: a doodle of the Carbendazim, a type of fungi
+Example: a origami Carbendazim, a type of fungi
+Example: a low resolution photo of a Carbendazim, a type of fungi
+Example: the toy Carbendazim, a type of fungi
+Example: a rendition of the Carbendazim, a type of fungi
+Example: a photo of the clean Carbendazim, a type of fungi
+Example: a photo of a large Carbendazim, a type of fungi
+Example: a rendition of a Carbendazim, a type of fungi
+Example: a photo of a nice Carbendazim, a type of fungi
+Example: a photo of a weird Carbendazim, a type of fungi
+Example: a blurry photo of a Carbendazim, a type of fungi
+Example: a cartoon Carbendazim, a type of fungi
+Example: art of a Carbendazim, a type of fungi
+Example: a sketch of the Carbendazim, a type of fungi
+Example: a embroidered Carbendazim, a type of fungi
+Example: a pixelated photo of a Carbendazim, a type of fungi
+Example: itap of the Carbendazim, a type of fungi
+Example: a jpeg corrupted photo of the Carbendazim, a type of fungi
+Example: a good photo of a Carbendazim, a type of fungi
+Example: a plushie Carbendazim, a type of fungi
+Example: a photo of the nice Carbendazim, a type of fungi
+Example: a photo of the small Carbendazim, a type of fungi
+Example: a photo of the weird Carbendazim, a type of fungi
+Example: the cartoon Carbendazim, a type of fungi
+Example: art of the Carbendazim, a type of fungi
+Example: a drawing of the Carbendazim, a type of fungi
+Example: a photo of the large Carbendazim, a type of fungi
+Example: a black and white photo of a Carbendazim, a type of fungi
+Example: the plushie Carbendazim, a type of fungi
+Example: a dark photo of a Carbendazim, a type of fungi
+Example: itap of a Carbendazim, a type of fungi
+Example: graffiti of the Carbendazim, a type of fungi
+Example: a toy Carbendazim, a type of fungi
+Example: itap of my Carbendazim, a type of fungi
+Example: a photo of a cool Carbendazim, a type of fungi
+Example: a photo of a small Carbendazim, a type of fungi
+Example: a tattoo of the Carbendazim, a type of fungi
+openai manual prompt ensemble centroid ZS base
+acc:  33.33333432674408
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid base
+acc:  11.11111119389534
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid base
+acc:  33.33333432674408
+Calculated 8 description vectors
+acc:  22.22222238779068
+Calculated 8 description vectors
+acc:  11.11111119389534
+Calculated 1 description vectors
+acc:  22.22222238779068
+Calculated 1 description vectors
+acc:  33.33333432674408
+a photo of ZS new
+acc:  55.55555820465088
+Example: a photo of a GermTube, a type of fungi
+Example: a bad photo of a GermTube, a type of fungi
+Example: a photo of many GermTube, a type of fungi
+Example: a sculpture of a GermTube, a type of fungi
+Example: a photo of the hard to see GermTube, a type of fungi
+Example: a low resolution photo of the GermTube, a type of fungi
+Example: a rendering of a GermTube, a type of fungi
+Example: graffiti of a GermTube, a type of fungi
+Example: a bad photo of the GermTube, a type of fungi
+Example: a cropped photo of the GermTube, a type of fungi
+Example: a tattoo of a GermTube, a type of fungi
+Example: the embroidered GermTube, a type of fungi
+Example: a photo of a hard to see GermTube, a type of fungi
+Example: a bright photo of a GermTube, a type of fungi
+Example: a photo of a clean GermTube, a type of fungi
+Example: a photo of a dirty GermTube, a type of fungi
+Example: a dark photo of the GermTube, a type of fungi
+Example: a drawing of a GermTube, a type of fungi
+Example: a photo of my GermTube, a type of fungi
+Example: the plastic GermTube, a type of fungi
+Example: a photo of the cool GermTube, a type of fungi
+Example: a close-up photo of a GermTube, a type of fungi
+Example: a black and white photo of the GermTube, a type of fungi
+Example: a painting of the GermTube, a type of fungi
+Example: a painting of a GermTube, a type of fungi
+Example: a pixelated photo of the GermTube, a type of fungi
+Example: a sculpture of the GermTube, a type of fungi
+Example: a bright photo of the GermTube, a type of fungi
+Example: a cropped photo of a GermTube, a type of fungi
+Example: a plastic GermTube, a type of fungi
+Example: a photo of the dirty GermTube, a type of fungi
+Example: a jpeg corrupted photo of a GermTube, a type of fungi
+Example: a blurry photo of the GermTube, a type of fungi
+Example: a photo of the GermTube, a type of fungi
+Example: a good photo of the GermTube, a type of fungi
+Example: a rendering of the GermTube, a type of fungi
+Example: a GermTube in a video game, a type of fungi
+Example: a photo of one GermTube, a type of fungi
+Example: a doodle of a GermTube, a type of fungi
+Example: a close-up photo of the GermTube, a type of fungi
+Example: the origami GermTube, a type of fungi
+Example: the GermTube in a video game, a type of fungi
+Example: a sketch of a GermTube, a type of fungi
+Example: a doodle of the GermTube, a type of fungi
+Example: a origami GermTube, a type of fungi
+Example: a low resolution photo of a GermTube, a type of fungi
+Example: the toy GermTube, a type of fungi
+Example: a rendition of the GermTube, a type of fungi
+Example: a photo of the clean GermTube, a type of fungi
+Example: a photo of a large GermTube, a type of fungi
+Example: a rendition of a GermTube, a type of fungi
+Example: a photo of a nice GermTube, a type of fungi
+Example: a photo of a weird GermTube, a type of fungi
+Example: a blurry photo of a GermTube, a type of fungi
+Example: a cartoon GermTube, a type of fungi
+Example: art of a GermTube, a type of fungi
+Example: a sketch of the GermTube, a type of fungi
+Example: a embroidered GermTube, a type of fungi
+Example: a pixelated photo of a GermTube, a type of fungi
+Example: itap of the GermTube, a type of fungi
+Example: a jpeg corrupted photo of the GermTube, a type of fungi
+Example: a good photo of a GermTube, a type of fungi
+Example: a plushie GermTube, a type of fungi
+Example: a photo of the nice GermTube, a type of fungi
+Example: a photo of the small GermTube, a type of fungi
+Example: a photo of the weird GermTube, a type of fungi
+Example: the cartoon GermTube, a type of fungi
+Example: art of the GermTube, a type of fungi
+Example: a drawing of the GermTube, a type of fungi
+Example: a photo of the large GermTube, a type of fungi
+Example: a black and white photo of a GermTube, a type of fungi
+Example: the plushie GermTube, a type of fungi
+Example: a dark photo of a GermTube, a type of fungi
+Example: itap of a GermTube, a type of fungi
+Example: graffiti of the GermTube, a type of fungi
+Example: a toy GermTube, a type of fungi
+Example: itap of my GermTube, a type of fungi
+Example: a photo of a cool GermTube, a type of fungi
+Example: a photo of a small GermTube, a type of fungi
+Example: a tattoo of the GermTube, a type of fungi
+openai manual prompt ensemble centroid ZS new
+acc:  33.33333432674408
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid new
+acc:  55.55555820465088
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid new
+acc:  66.66666865348816
+Calculated 8 description vectors
+acc:  55.55555820465088
+Calculated 8 description vectors
+acc:  44.44444477558136
+Calculated 1 description vectors
+acc:  55.55555820465088
+Calculated 1 description vectors
+acc:  44.44444477558136
+ZS,base 22.22222238779068,new 55.55555820465088,
+ensemble,base 33.33333432674408,new 33.33333432674408,
+gpt-centroids,base 11.11111119389534,new 55.55555820465088,
+gpt-score-averaging,base 11.11111119389534,new 66.66666865348816,
+raw-gpt-centroids,base 33.33333432674408,new 66.66666865348816,
+raw-gpt-score-averaging,base 22.22222238779068,new 66.66666865348816,
+word-soup,base 22.22222238779068,new 55.55555820465088,
+word-soup-token-offset,base 11.11111119389534,new 44.44444477558136,
+descriptor-soup,base 22.22222238779068,new 55.55555820465088,
+descriptor-soup-token-offset,base 33.33333432674408,new 44.44444477558136,
+Namespace(dataset='FungiSmall', bs=4, seed=2, accum_iter=1, lr=5e-05, wd=1e-05, shots=4, d=512, modelname='ViT-B-16', pretrained='openai', cache_dir='/home/y/yangxi/proj/visualrep/code/word_soups_bio/cache', data_dir='/home/y/yangxi/proj/visualrep/code/word_soups/data', use_patches=False, n_epochs=1, iters_per_epoch=3, lr_decay=0.0, temp=60.0, optimizer='sgd', loss='ce', label_smoothing=0.0, samples_per_class=1, margin=0.0, adaptive_margin=0.0, ema=0.995, visual_prompt_depth=0, visual_prompt_length=3, text_prompt_length=3, text_prompt_depth=1, train_text_encoder=1, train_visual_encoder=1, layer_start_v=9, layer_start_t=9, maple=0, lora=0, bitfit=0, adapter=0, ssf=0, resblock_adapter=0, rank=4, shallow_prompt_init='a photo of', prompt_lr_multi=10.0, eval_only=0, save_model=0, n_descriptors=-1, checkpoint='', prompt_rand_init=0, suffix_string='', train_with_descriptors=0, teacher_temp=100.0, init_lam=0.0, skip_ema_iters=0, subsample_classes='base', openai_eval=1, gpt_centroid_eval=1, gpt_score_averaging_eval=1, raw_gpt_centroid_eval=1, raw_gpt_score_averaging_eval=1, soup_eval=1, token_offset_eval=1)
+CHOSEN WORD SOUP DESCRIPTORS: 
+ psi botswana canadian.
+ code zealand.
+ wicked if.
+ laid india bm.
+ lewis.
+ rca.
+ tommy warner.
+ deviation debut bulgaria.
+CHOSEN DESC SOUP ESCRIPTORS: 
+ which can be of different lengths.
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_2.pkl
+SUBSAMPLE BASE CLASSES!
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_2.pkl
+SUBSAMPLE NEW CLASSES!
+CAUTION ! limiting dataset to 4 shots. This should only be done on informal experiments.
+len(dset_base_train):  12
+len(dset_base_test):  9
+len(dset_new_test):  9
+number of base classes:  3
+number of new classes:  3
+prompt tuning with prompt length M=3
+shape of text prompt token vectors: torch.Size([3, 512])
+shape of prefix token vectors: torch.Size([1, 512])
+ optimizer param shapes 
+------------------------
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768, 512])
+torch.Size([768])
+torch.Size([768])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([3, 512])
+------------------------
+There are 2 param groups
+epoch:0 , param_group:0, len: 10, lr:5e-05
+epoch:0 , param_group:1, len: 10, lr:0.0005
+Runing Evaluation ...
+a photo of ZS base
+acc:  22.22222238779068
+Example: a photo of a Carbendazim, a type of fungi
+Example: a bad photo of a Carbendazim, a type of fungi
+Example: a photo of many Carbendazim, a type of fungi
+Example: a sculpture of a Carbendazim, a type of fungi
+Example: a photo of the hard to see Carbendazim, a type of fungi
+Example: a low resolution photo of the Carbendazim, a type of fungi
+Example: a rendering of a Carbendazim, a type of fungi
+Example: graffiti of a Carbendazim, a type of fungi
+Example: a bad photo of the Carbendazim, a type of fungi
+Example: a cropped photo of the Carbendazim, a type of fungi
+Example: a tattoo of a Carbendazim, a type of fungi
+Example: the embroidered Carbendazim, a type of fungi
+Example: a photo of a hard to see Carbendazim, a type of fungi
+Example: a bright photo of a Carbendazim, a type of fungi
+Example: a photo of a clean Carbendazim, a type of fungi
+Example: a photo of a dirty Carbendazim, a type of fungi
+Example: a dark photo of the Carbendazim, a type of fungi
+Example: a drawing of a Carbendazim, a type of fungi
+Example: a photo of my Carbendazim, a type of fungi
+Example: the plastic Carbendazim, a type of fungi
+Example: a photo of the cool Carbendazim, a type of fungi
+Example: a close-up photo of a Carbendazim, a type of fungi
+Example: a black and white photo of the Carbendazim, a type of fungi
+Example: a painting of the Carbendazim, a type of fungi
+Example: a painting of a Carbendazim, a type of fungi
+Example: a pixelated photo of the Carbendazim, a type of fungi
+Example: a sculpture of the Carbendazim, a type of fungi
+Example: a bright photo of the Carbendazim, a type of fungi
+Example: a cropped photo of a Carbendazim, a type of fungi
+Example: a plastic Carbendazim, a type of fungi
+Example: a photo of the dirty Carbendazim, a type of fungi
+Example: a jpeg corrupted photo of a Carbendazim, a type of fungi
+Example: a blurry photo of the Carbendazim, a type of fungi
+Example: a photo of the Carbendazim, a type of fungi
+Example: a good photo of the Carbendazim, a type of fungi
+Example: a rendering of the Carbendazim, a type of fungi
+Example: a Carbendazim in a video game, a type of fungi
+Example: a photo of one Carbendazim, a type of fungi
+Example: a doodle of a Carbendazim, a type of fungi
+Example: a close-up photo of the Carbendazim, a type of fungi
+Example: the origami Carbendazim, a type of fungi
+Example: the Carbendazim in a video game, a type of fungi
+Example: a sketch of a Carbendazim, a type of fungi
+Example: a doodle of the Carbendazim, a type of fungi
+Example: a origami Carbendazim, a type of fungi
+Example: a low resolution photo of a Carbendazim, a type of fungi
+Example: the toy Carbendazim, a type of fungi
+Example: a rendition of the Carbendazim, a type of fungi
+Example: a photo of the clean Carbendazim, a type of fungi
+Example: a photo of a large Carbendazim, a type of fungi
+Example: a rendition of a Carbendazim, a type of fungi
+Example: a photo of a nice Carbendazim, a type of fungi
+Example: a photo of a weird Carbendazim, a type of fungi
+Example: a blurry photo of a Carbendazim, a type of fungi
+Example: a cartoon Carbendazim, a type of fungi
+Example: art of a Carbendazim, a type of fungi
+Example: a sketch of the Carbendazim, a type of fungi
+Example: a embroidered Carbendazim, a type of fungi
+Example: a pixelated photo of a Carbendazim, a type of fungi
+Example: itap of the Carbendazim, a type of fungi
+Example: a jpeg corrupted photo of the Carbendazim, a type of fungi
+Example: a good photo of a Carbendazim, a type of fungi
+Example: a plushie Carbendazim, a type of fungi
+Example: a photo of the nice Carbendazim, a type of fungi
+Example: a photo of the small Carbendazim, a type of fungi
+Example: a photo of the weird Carbendazim, a type of fungi
+Example: the cartoon Carbendazim, a type of fungi
+Example: art of the Carbendazim, a type of fungi
+Example: a drawing of the Carbendazim, a type of fungi
+Example: a photo of the large Carbendazim, a type of fungi
+Example: a black and white photo of a Carbendazim, a type of fungi
+Example: the plushie Carbendazim, a type of fungi
+Example: a dark photo of a Carbendazim, a type of fungi
+Example: itap of a Carbendazim, a type of fungi
+Example: graffiti of the Carbendazim, a type of fungi
+Example: a toy Carbendazim, a type of fungi
+Example: itap of my Carbendazim, a type of fungi
+Example: a photo of a cool Carbendazim, a type of fungi
+Example: a photo of a small Carbendazim, a type of fungi
+Example: a tattoo of the Carbendazim, a type of fungi
+openai manual prompt ensemble centroid ZS base
+acc:  33.33333432674408
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid base
+acc:  11.11111119389534
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid base
+acc:  33.33333432674408
+Calculated 8 description vectors
+acc:  22.22222238779068
+Calculated 8 description vectors
+acc:  22.22222238779068
+Calculated 1 description vectors
+acc:  22.22222238779068
+Calculated 1 description vectors
+acc:  33.33333432674408
+a photo of ZS new
+acc:  55.55555820465088
+Example: a photo of a GermTube, a type of fungi
+Example: a bad photo of a GermTube, a type of fungi
+Example: a photo of many GermTube, a type of fungi
+Example: a sculpture of a GermTube, a type of fungi
+Example: a photo of the hard to see GermTube, a type of fungi
+Example: a low resolution photo of the GermTube, a type of fungi
+Example: a rendering of a GermTube, a type of fungi
+Example: graffiti of a GermTube, a type of fungi
+Example: a bad photo of the GermTube, a type of fungi
+Example: a cropped photo of the GermTube, a type of fungi
+Example: a tattoo of a GermTube, a type of fungi
+Example: the embroidered GermTube, a type of fungi
+Example: a photo of a hard to see GermTube, a type of fungi
+Example: a bright photo of a GermTube, a type of fungi
+Example: a photo of a clean GermTube, a type of fungi
+Example: a photo of a dirty GermTube, a type of fungi
+Example: a dark photo of the GermTube, a type of fungi
+Example: a drawing of a GermTube, a type of fungi
+Example: a photo of my GermTube, a type of fungi
+Example: the plastic GermTube, a type of fungi
+Example: a photo of the cool GermTube, a type of fungi
+Example: a close-up photo of a GermTube, a type of fungi
+Example: a black and white photo of the GermTube, a type of fungi
+Example: a painting of the GermTube, a type of fungi
+Example: a painting of a GermTube, a type of fungi
+Example: a pixelated photo of the GermTube, a type of fungi
+Example: a sculpture of the GermTube, a type of fungi
+Example: a bright photo of the GermTube, a type of fungi
+Example: a cropped photo of a GermTube, a type of fungi
+Example: a plastic GermTube, a type of fungi
+Example: a photo of the dirty GermTube, a type of fungi
+Example: a jpeg corrupted photo of a GermTube, a type of fungi
+Example: a blurry photo of the GermTube, a type of fungi
+Example: a photo of the GermTube, a type of fungi
+Example: a good photo of the GermTube, a type of fungi
+Example: a rendering of the GermTube, a type of fungi
+Example: a GermTube in a video game, a type of fungi
+Example: a photo of one GermTube, a type of fungi
+Example: a doodle of a GermTube, a type of fungi
+Example: a close-up photo of the GermTube, a type of fungi
+Example: the origami GermTube, a type of fungi
+Example: the GermTube in a video game, a type of fungi
+Example: a sketch of a GermTube, a type of fungi
+Example: a doodle of the GermTube, a type of fungi
+Example: a origami GermTube, a type of fungi
+Example: a low resolution photo of a GermTube, a type of fungi
+Example: the toy GermTube, a type of fungi
+Example: a rendition of the GermTube, a type of fungi
+Example: a photo of the clean GermTube, a type of fungi
+Example: a photo of a large GermTube, a type of fungi
+Example: a rendition of a GermTube, a type of fungi
+Example: a photo of a nice GermTube, a type of fungi
+Example: a photo of a weird GermTube, a type of fungi
+Example: a blurry photo of a GermTube, a type of fungi
+Example: a cartoon GermTube, a type of fungi
+Example: art of a GermTube, a type of fungi
+Example: a sketch of the GermTube, a type of fungi
+Example: a embroidered GermTube, a type of fungi
+Example: a pixelated photo of a GermTube, a type of fungi
+Example: itap of the GermTube, a type of fungi
+Example: a jpeg corrupted photo of the GermTube, a type of fungi
+Example: a good photo of a GermTube, a type of fungi
+Example: a plushie GermTube, a type of fungi
+Example: a photo of the nice GermTube, a type of fungi
+Example: a photo of the small GermTube, a type of fungi
+Example: a photo of the weird GermTube, a type of fungi
+Example: the cartoon GermTube, a type of fungi
+Example: art of the GermTube, a type of fungi
+Example: a drawing of the GermTube, a type of fungi
+Example: a photo of the large GermTube, a type of fungi
+Example: a black and white photo of a GermTube, a type of fungi
+Example: the plushie GermTube, a type of fungi
+Example: a dark photo of a GermTube, a type of fungi
+Example: itap of a GermTube, a type of fungi
+Example: graffiti of the GermTube, a type of fungi
+Example: a toy GermTube, a type of fungi
+Example: itap of my GermTube, a type of fungi
+Example: a photo of a cool GermTube, a type of fungi
+Example: a photo of a small GermTube, a type of fungi
+Example: a tattoo of the GermTube, a type of fungi
+openai manual prompt ensemble centroid ZS new
+acc:  33.33333432674408
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid new
+acc:  55.55555820465088
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid new
+acc:  66.66666865348816
+Calculated 8 description vectors
+acc:  44.44444477558136
+Calculated 8 description vectors
+acc:  55.55555820465088
+Calculated 1 description vectors
+acc:  55.55555820465088
+Calculated 1 description vectors
+acc:  44.44444477558136
+ZS,base 22.22222238779068,new 55.55555820465088,
+ensemble,base 33.33333432674408,new 33.33333432674408,
+gpt-centroids,base 11.11111119389534,new 55.55555820465088,
+gpt-score-averaging,base 11.11111119389534,new 66.66666865348816,
+raw-gpt-centroids,base 33.33333432674408,new 66.66666865348816,
+raw-gpt-score-averaging,base 22.22222238779068,new 66.66666865348816,
+word-soup,base 22.22222238779068,new 44.44444477558136,
+word-soup-token-offset,base 22.22222238779068,new 55.55555820465088,
+descriptor-soup,base 22.22222238779068,new 55.55555820465088,
+descriptor-soup-token-offset,base 33.33333432674408,new 44.44444477558136,
+Namespace(dataset='FungiSmall', bs=4, seed=3, accum_iter=1, lr=5e-05, wd=1e-05, shots=4, d=512, modelname='ViT-B-16', pretrained='openai', cache_dir='/home/y/yangxi/proj/visualrep/code/word_soups_bio/cache', data_dir='/home/y/yangxi/proj/visualrep/code/word_soups/data', use_patches=False, n_epochs=1, iters_per_epoch=3, lr_decay=0.0, temp=60.0, optimizer='sgd', loss='ce', label_smoothing=0.0, samples_per_class=1, margin=0.0, adaptive_margin=0.0, ema=0.995, visual_prompt_depth=0, visual_prompt_length=3, text_prompt_length=3, text_prompt_depth=1, train_text_encoder=1, train_visual_encoder=1, layer_start_v=9, layer_start_t=9, maple=0, lora=0, bitfit=0, adapter=0, ssf=0, resblock_adapter=0, rank=4, shallow_prompt_init='a photo of', prompt_lr_multi=10.0, eval_only=0, save_model=0, n_descriptors=-1, checkpoint='', prompt_rand_init=0, suffix_string='', train_with_descriptors=0, teacher_temp=100.0, init_lam=0.0, skip_ema_iters=0, subsample_classes='base', openai_eval=1, gpt_centroid_eval=1, gpt_score_averaging_eval=1, raw_gpt_centroid_eval=1, raw_gpt_score_averaging_eval=1, soup_eval=1, token_offset_eval=1)
+CHOSEN WORD SOUP DESCRIPTORS: 
+ hits drops.
+ cleared lightbox jacob.
+ attempts released.
+ gear mercury mediterranean.
+ curves attempted.
+ eric mary.
+ strikes l.
+ variance mongolia shaft.
+CHOSEN DESC SOUP ESCRIPTORS: 
+ which can be of different lengths.
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_3.pkl
+SUBSAMPLE BASE CLASSES!
+Reading split from /home/y/yangxi/proj/visualrep/code/word_soups/data/images4LMU/split_yang_FungiSmall.json
+Loading preprocessed few-shot data from /home/y/yangxi/proj/visualrep/code/word_soups_bio/datasets/splits/fungismall/shot_16-seed_3.pkl
+SUBSAMPLE NEW CLASSES!
+CAUTION ! limiting dataset to 4 shots. This should only be done on informal experiments.
+len(dset_base_train):  12
+len(dset_base_test):  9
+len(dset_new_test):  9
+number of base classes:  3
+number of new classes:  3
+prompt tuning with prompt length M=3
+shape of text prompt token vectors: torch.Size([3, 512])
+shape of prefix token vectors: torch.Size([1, 512])
+ optimizer param shapes 
+------------------------
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([2304, 768])
+torch.Size([2304])
+torch.Size([768, 768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([768])
+torch.Size([3072, 768])
+torch.Size([3072])
+torch.Size([768, 3072])
+torch.Size([768])
+torch.Size([768, 512])
+torch.Size([768])
+torch.Size([768])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([1536, 512])
+torch.Size([1536])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([2048, 512])
+torch.Size([2048])
+torch.Size([512, 2048])
+torch.Size([512])
+torch.Size([512, 512])
+torch.Size([512])
+torch.Size([512])
+torch.Size([3, 512])
+------------------------
+There are 2 param groups
+epoch:0 , param_group:0, len: 10, lr:5e-05
+epoch:0 , param_group:1, len: 10, lr:0.0005
+Runing Evaluation ...
+a photo of ZS base
+acc:  22.22222238779068
+Example: a photo of a Carbendazim, a type of fungi
+Example: a bad photo of a Carbendazim, a type of fungi
+Example: a photo of many Carbendazim, a type of fungi
+Example: a sculpture of a Carbendazim, a type of fungi
+Example: a photo of the hard to see Carbendazim, a type of fungi
+Example: a low resolution photo of the Carbendazim, a type of fungi
+Example: a rendering of a Carbendazim, a type of fungi
+Example: graffiti of a Carbendazim, a type of fungi
+Example: a bad photo of the Carbendazim, a type of fungi
+Example: a cropped photo of the Carbendazim, a type of fungi
+Example: a tattoo of a Carbendazim, a type of fungi
+Example: the embroidered Carbendazim, a type of fungi
+Example: a photo of a hard to see Carbendazim, a type of fungi
+Example: a bright photo of a Carbendazim, a type of fungi
+Example: a photo of a clean Carbendazim, a type of fungi
+Example: a photo of a dirty Carbendazim, a type of fungi
+Example: a dark photo of the Carbendazim, a type of fungi
+Example: a drawing of a Carbendazim, a type of fungi
+Example: a photo of my Carbendazim, a type of fungi
+Example: the plastic Carbendazim, a type of fungi
+Example: a photo of the cool Carbendazim, a type of fungi
+Example: a close-up photo of a Carbendazim, a type of fungi
+Example: a black and white photo of the Carbendazim, a type of fungi
+Example: a painting of the Carbendazim, a type of fungi
+Example: a painting of a Carbendazim, a type of fungi
+Example: a pixelated photo of the Carbendazim, a type of fungi
+Example: a sculpture of the Carbendazim, a type of fungi
+Example: a bright photo of the Carbendazim, a type of fungi
+Example: a cropped photo of a Carbendazim, a type of fungi
+Example: a plastic Carbendazim, a type of fungi
+Example: a photo of the dirty Carbendazim, a type of fungi
+Example: a jpeg corrupted photo of a Carbendazim, a type of fungi
+Example: a blurry photo of the Carbendazim, a type of fungi
+Example: a photo of the Carbendazim, a type of fungi
+Example: a good photo of the Carbendazim, a type of fungi
+Example: a rendering of the Carbendazim, a type of fungi
+Example: a Carbendazim in a video game, a type of fungi
+Example: a photo of one Carbendazim, a type of fungi
+Example: a doodle of a Carbendazim, a type of fungi
+Example: a close-up photo of the Carbendazim, a type of fungi
+Example: the origami Carbendazim, a type of fungi
+Example: the Carbendazim in a video game, a type of fungi
+Example: a sketch of a Carbendazim, a type of fungi
+Example: a doodle of the Carbendazim, a type of fungi
+Example: a origami Carbendazim, a type of fungi
+Example: a low resolution photo of a Carbendazim, a type of fungi
+Example: the toy Carbendazim, a type of fungi
+Example: a rendition of the Carbendazim, a type of fungi
+Example: a photo of the clean Carbendazim, a type of fungi
+Example: a photo of a large Carbendazim, a type of fungi
+Example: a rendition of a Carbendazim, a type of fungi
+Example: a photo of a nice Carbendazim, a type of fungi
+Example: a photo of a weird Carbendazim, a type of fungi
+Example: a blurry photo of a Carbendazim, a type of fungi
+Example: a cartoon Carbendazim, a type of fungi
+Example: art of a Carbendazim, a type of fungi
+Example: a sketch of the Carbendazim, a type of fungi
+Example: a embroidered Carbendazim, a type of fungi
+Example: a pixelated photo of a Carbendazim, a type of fungi
+Example: itap of the Carbendazim, a type of fungi
+Example: a jpeg corrupted photo of the Carbendazim, a type of fungi
+Example: a good photo of a Carbendazim, a type of fungi
+Example: a plushie Carbendazim, a type of fungi
+Example: a photo of the nice Carbendazim, a type of fungi
+Example: a photo of the small Carbendazim, a type of fungi
+Example: a photo of the weird Carbendazim, a type of fungi
+Example: the cartoon Carbendazim, a type of fungi
+Example: art of the Carbendazim, a type of fungi
+Example: a drawing of the Carbendazim, a type of fungi
+Example: a photo of the large Carbendazim, a type of fungi
+Example: a black and white photo of a Carbendazim, a type of fungi
+Example: the plushie Carbendazim, a type of fungi
+Example: a dark photo of a Carbendazim, a type of fungi
+Example: itap of a Carbendazim, a type of fungi
+Example: graffiti of the Carbendazim, a type of fungi
+Example: a toy Carbendazim, a type of fungi
+Example: itap of my Carbendazim, a type of fungi
+Example: a photo of a cool Carbendazim, a type of fungi
+Example: a photo of a small Carbendazim, a type of fungi
+Example: a tattoo of the Carbendazim, a type of fungi
+openai manual prompt ensemble centroid ZS base
+acc:  33.33333432674408
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid base
+acc:  11.11111119389534
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid base
+acc:  33.33333432674408
+Calculated 8 description vectors
+acc:  11.11111119389534
+Calculated 8 description vectors
+acc:  22.22222238779068
+Calculated 1 description vectors
+acc:  22.22222238779068
+Calculated 1 description vectors
+acc:  33.33333432674408
+a photo of ZS new
+acc:  55.55555820465088
+Example: a photo of a GermTube, a type of fungi
+Example: a bad photo of a GermTube, a type of fungi
+Example: a photo of many GermTube, a type of fungi
+Example: a sculpture of a GermTube, a type of fungi
+Example: a photo of the hard to see GermTube, a type of fungi
+Example: a low resolution photo of the GermTube, a type of fungi
+Example: a rendering of a GermTube, a type of fungi
+Example: graffiti of a GermTube, a type of fungi
+Example: a bad photo of the GermTube, a type of fungi
+Example: a cropped photo of the GermTube, a type of fungi
+Example: a tattoo of a GermTube, a type of fungi
+Example: the embroidered GermTube, a type of fungi
+Example: a photo of a hard to see GermTube, a type of fungi
+Example: a bright photo of a GermTube, a type of fungi
+Example: a photo of a clean GermTube, a type of fungi
+Example: a photo of a dirty GermTube, a type of fungi
+Example: a dark photo of the GermTube, a type of fungi
+Example: a drawing of a GermTube, a type of fungi
+Example: a photo of my GermTube, a type of fungi
+Example: the plastic GermTube, a type of fungi
+Example: a photo of the cool GermTube, a type of fungi
+Example: a close-up photo of a GermTube, a type of fungi
+Example: a black and white photo of the GermTube, a type of fungi
+Example: a painting of the GermTube, a type of fungi
+Example: a painting of a GermTube, a type of fungi
+Example: a pixelated photo of the GermTube, a type of fungi
+Example: a sculpture of the GermTube, a type of fungi
+Example: a bright photo of the GermTube, a type of fungi
+Example: a cropped photo of a GermTube, a type of fungi
+Example: a plastic GermTube, a type of fungi
+Example: a photo of the dirty GermTube, a type of fungi
+Example: a jpeg corrupted photo of a GermTube, a type of fungi
+Example: a blurry photo of the GermTube, a type of fungi
+Example: a photo of the GermTube, a type of fungi
+Example: a good photo of the GermTube, a type of fungi
+Example: a rendering of the GermTube, a type of fungi
+Example: a GermTube in a video game, a type of fungi
+Example: a photo of one GermTube, a type of fungi
+Example: a doodle of a GermTube, a type of fungi
+Example: a close-up photo of the GermTube, a type of fungi
+Example: the origami GermTube, a type of fungi
+Example: the GermTube in a video game, a type of fungi
+Example: a sketch of a GermTube, a type of fungi
+Example: a doodle of the GermTube, a type of fungi
+Example: a origami GermTube, a type of fungi
+Example: a low resolution photo of a GermTube, a type of fungi
+Example: the toy GermTube, a type of fungi
+Example: a rendition of the GermTube, a type of fungi
+Example: a photo of the clean GermTube, a type of fungi
+Example: a photo of a large GermTube, a type of fungi
+Example: a rendition of a GermTube, a type of fungi
+Example: a photo of a nice GermTube, a type of fungi
+Example: a photo of a weird GermTube, a type of fungi
+Example: a blurry photo of a GermTube, a type of fungi
+Example: a cartoon GermTube, a type of fungi
+Example: art of a GermTube, a type of fungi
+Example: a sketch of the GermTube, a type of fungi
+Example: a embroidered GermTube, a type of fungi
+Example: a pixelated photo of a GermTube, a type of fungi
+Example: itap of the GermTube, a type of fungi
+Example: a jpeg corrupted photo of the GermTube, a type of fungi
+Example: a good photo of a GermTube, a type of fungi
+Example: a plushie GermTube, a type of fungi
+Example: a photo of the nice GermTube, a type of fungi
+Example: a photo of the small GermTube, a type of fungi
+Example: a photo of the weird GermTube, a type of fungi
+Example: the cartoon GermTube, a type of fungi
+Example: art of the GermTube, a type of fungi
+Example: a drawing of the GermTube, a type of fungi
+Example: a photo of the large GermTube, a type of fungi
+Example: a black and white photo of a GermTube, a type of fungi
+Example: the plushie GermTube, a type of fungi
+Example: a dark photo of a GermTube, a type of fungi
+Example: itap of a GermTube, a type of fungi
+Example: graffiti of the GermTube, a type of fungi
+Example: a toy GermTube, a type of fungi
+Example: itap of my GermTube, a type of fungi
+Example: a photo of a cool GermTube, a type of fungi
+Example: a photo of a small GermTube, a type of fungi
+Example: a tattoo of the GermTube, a type of fungi
+openai manual prompt ensemble centroid ZS new
+acc:  33.33333432674408
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid new
+acc:  55.55555820465088
+
+Example description for class Carbendazim: "a photo of a Carbendazim, a type of fungi, which has thin, rod-shaped bacteria."
+
+\Raw description for class Carbendazim: "thin, rod-shaped bacteria"
+
+GPT descriptions centroid new
+acc:  66.66666865348816
+Calculated 8 description vectors
+acc:  55.55555820465088
+Calculated 8 description vectors
+acc:  55.55555820465088
+Calculated 1 description vectors
+acc:  55.55555820465088
+Calculated 1 description vectors
+acc:  44.44444477558136
+ZS,base 22.22222238779068,new 55.55555820465088,
+ensemble,base 33.33333432674408,new 33.33333432674408,
+gpt-centroids,base 11.11111119389534,new 55.55555820465088,
+gpt-score-averaging,base 11.11111119389534,new 66.66666865348816,
+raw-gpt-centroids,base 33.33333432674408,new 66.66666865348816,
+raw-gpt-score-averaging,base 22.22222238779068,new 66.66666865348816,
+word-soup,base 11.11111119389534,new 55.55555820465088,
+word-soup-token-offset,base 22.22222238779068,new 55.55555820465088,
+descriptor-soup,base 22.22222238779068,new 55.55555820465088,
+descriptor-soup-token-offset,base 33.33333432674408,new 44.44444477558136,
